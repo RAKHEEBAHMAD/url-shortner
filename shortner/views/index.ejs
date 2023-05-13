@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>URL shortner</title>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Url shortner</h1>
+      <form action="\url" method="post">
+        <input
+          type="text"
+          name="fullurl"
+          placeholder="Enter full link"
+          autocomplete="off"
+          required
+        />
+        <button type="submit">shrink</button>
+      </form>
+      <% if (error) { %>
+        <p class="error-message"><%= error %></p>
+      <% } %>
+      <table>
+        <thead>
+          <th>Full Url</th>
+          <th>Short Url</th>
+          <th>Clicks</th>
+          <th>Action</th>
+        </thead>
+        <tbody>
+          <% urls.forEach(shortUrl => { %>
+          <tr>
+            <td><a href="<%= shortUrl.full %>"><%= shortUrl.full %></a></td>
+            <td><a href="<%= shortUrl.short %>"><%= shortUrl.short %></a></td>
+            <td><%= shortUrl.clicks %></td>
+            <td>
+              <form action="/url/<%= shortUrl._id %>?_method=DELETE" method="post">
+                <button type="submit" class="del-btn">Delete</button>
+              </form>
+            </td>
+          </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>
